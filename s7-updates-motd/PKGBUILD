@@ -1,0 +1,18 @@
+# Maintainer: Christian Klein <Sector7@gmx.de>
+pkgname=s7-updates-motd
+pkgver=1.0
+pkgrel=1
+pkgdesc="Updates MOTD with pacman updates"
+arch=('any')
+license=('GPL')
+depends=('pacman-contrib')
+install=s7-updates-motd.install
+source=()
+backup=('etc/motd.d/00-updates')
+
+package() {
+  install -Dm755 "$srcdir/usr/local/bin/s7-updates-motd.sh" "$pkgdir/usr/local/bin/s7-updates-motd.sh"
+  install -Dm644 "$srcdir/etc/systemd/system/s7-updates-motd.service" "$pkgdir/etc/systemd/system/s7-updates-motd.service"
+  install -Dm644 "$srcdir/etc/systemd/system/s7-updates-motd.timer" "$pkgdir/etc/systemd/system/s7-updates-motd.timer"
+  install -Dm644 "$srcdir/etc/pacman.d/hooks/99-s7-updates-motd.hook" "$pkgdir/etc/pacman.d/hooks/99-s7-updates-motd.hook"
+}

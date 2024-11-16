@@ -1,0 +1,15 @@
+# Maintainer: Christian Klein <Sector7@gmx.de>
+pkgname=s7-ttf-baijamjuree
+pkgver=1.0
+pkgrel=1
+pkgdesc="Font Bai Jamjuree"
+arch=('any')
+license=('custom:OFL')
+depends=()
+source=()
+backup=()
+
+package() {
+    install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+    find -type f -name "*.ttf" -exec install -Dm644 {} "$pkgdir/usr/share/fonts/TTF/{}" \;
+}

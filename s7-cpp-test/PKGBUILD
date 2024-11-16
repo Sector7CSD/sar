@@ -1,0 +1,23 @@
+# Maintainer: Christian Klein <Sector7@gmx.de>
+pkgname=s7-cpp-test
+pkgver=1.0
+pkgrel=1
+pkgdesc="Hello World Test Application in C++"
+arch=('x86_64')
+license=('GPL')
+makedepends=(cmake)
+depends=()
+source=()
+backup=()
+
+build() {
+	mkdir -p ../build
+	pushd ../build
+	cmake ../src
+	make -j $(nproc)
+	popd
+}
+
+package() {
+	install -Dm755 "$srcdir/../build/s7-test-app" "$pkgdir/usr/local/bin/s7-test-app"
+}

@@ -1,0 +1,5 @@
+s7-*/pkg
+s7-*/s7-*.pkg.tar.zst
+s7-*/build
+s7-*/src/.idea
+s7-*/src/cmake-build*
