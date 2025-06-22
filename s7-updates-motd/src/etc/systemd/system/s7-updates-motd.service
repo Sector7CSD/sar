@@ -1,5 +1,0 @@
-[Unit]
-Description=Update MOTD with available package updates
-
-[Service]
-ExecStart=/usr/local/bin/s7-updates-motd.sh

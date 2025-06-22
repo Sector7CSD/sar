@@ -1,29 +1,34 @@
-SUBDIRS := $(wildcard s7-*/)
+SUBDIRS := $(wildcard ../pkgbuild/s7-*/)
 REPONAME = "sar"
 
-.PHONY: all $(SUBDIRS)
+.PHONY: all
+all: repo
 
-all: $(SUBDIRS)
+.PHONY: packages $(SUBDIRS)
+packages: $(SUBDIRS)
 
 # Regel für jedes Verzeichnis
 $(SUBDIRS):
 	$(MAKE) -C $@ -j
 
-# Optional: "clean"-Ziel für alle Unterverzeichnisse
 .PHONY: clean
 clean:
+	rm -rf "${REPONAME}/";
+
+.PHONY: cleanall
+cleanall: clean
 	for dir in $(SUBDIRS); do \
 		$(MAKE) -C $$dir clean; \
 	done
 
 .PHONY: copy2repo
 copy2repo:
-	cd "${REPONAME}"; \
 	pwd; \
-	find .. -type f -name "*.pkg.tar.zst" -not -path "../${REPONAME}/*" -exec cp {} . \;
+	mkdir -p "${REPONAME}"; \
+	find ../pkgbuild -type f -name "*.pkg.tar.zst" -exec cp {} "${REPONAME}" \;
 
 .PHONY: repo
-repo: all copy2repo
+repo: packages copy2repo
 	cd "${REPONAME}"; \
 	pwd; \
 	repo-add "${REPONAME}.db.tar.zst" s7-*.pkg.tar.zst ; \
